@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.4/css/bootstrap.min.css" integrity="sha384-2hfp1SzUoho7/TsGGGDaFdsuuDL0LX2hnUp6VkX3CUQ2K4K+xjboZdsXyp4oUHZj" crossorigin="anonymous">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    
+  </head>
+  <body>
+    <div class="navbar navbar-custom navbar-fixed-top">
+ <div class="navbar-header"><a class="navbar-brand" href="#">Petaluma Park Search</a>
+      <a class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </a>
+    </div>
+    <div class="navbar-collapse collapse">
+      
+      <form class="navbar-form">
+        <div class="form-group" style="display:inline;">
+          <div class="input-group">
+            <div class="input-group-btn">
+              <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-chevron-down"></span></button>
+              <ul class="dropdown-menu">
+                <li><a href="#">Chevron</a></li>
+                <li><a href="#">Shell</a></li>
+                <li><a href="#">Arco</a></li>
+                <li><a href="#">Texaco</a></li>
+                <li><a href="#">Valero</a></li> 
+              </ul>
+            </div>
+            <input type="text" class="form-control" placeholder="What park are you searching for?">
+            <span class="input-group-addon"><span class="glyphicon glyphicon-search"></span> </span>
+          </div>
+        </div>
+      </form>
+    </div>
+</div>
+
+<div id="map-canvas"></div>
+<div class="container-fluid" id="main">
+  <div class="row">
+    <div class="col-xs-4" id="left">
+      <br>
+      <br>
+      <h2>Petaluma Parks</h2>
+      
+      <!-- item list -->
+      
+          <div class="table-responsive">
+            <table class="table table-striped" data-bind="foreach: parkLocations">
+              <tr>
+                <td>
+                  <h4><strong><span data-bind="text: name, click: listViewClick"></span></strong></h4>
+                  <span data-bind="text: address, click: listViewClick"></span>
+                </td>
+              </tr>
+            </table>
+          </div>
+          
+      
+    </div>
+    <div class="col-xs-8"><!--map-canvas will be positioned here--></div>
+    
+  </div>
+</div>
+
+    
+    <script src="js/libs/jquery-3.1.1.js"></script>
+    <script src="js/libs/knockout-3.4.0.js"></script>
+    <script src="js/libs/scripts.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js" integrity="sha384-THPy051/pYDQGanwU6poAc/hOdQxjnOEXzbT+OuUAFqNqFjL+4IGLBgCJC3ZOShY" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.2.0/js/tether.min.js" integrity="sha384-Plbmg8JY28KFelvJVai01l8WyZzrYWG825m+cZ0eDDS1f7d/js6ikvy1+X+guPIB" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.4/js/bootstrap.min.js" integrity="sha384-VjEeINv9OSwtWFLAtmc4JCtEJXXBub00gtSnszmspDLCtC0I4z4nqz7rEFbIZLLU" crossorigin="anonymous"></script>
+    
+    <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAKBYkBS_rrDbJFXb9iwKxMm6GU9uE6Flo&callback=initMap">
+    </script>
+    <script src="js/libs/bootstrap.min.js"></script>
+    
+  </body>
+</html>
