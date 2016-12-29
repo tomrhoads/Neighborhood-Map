@@ -20,6 +20,29 @@
         <span class="icon-bar"></span>
         </a>
       </div>
+<!DOCTYPE html>
+<html>
+  <head>
+
+  <title>Neighborhood Map</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.4/css/bootstrap.min.css" integrity="sha384-2hfp1SzUoho7/TsGGGDaFdsuuDL0LX2hnUp6VkX3CUQ2K4K+xjboZdsXyp4oUHZj" crossorigin="anonymous">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    
+  </head>
+  <body>
+    <!--<div class="navbar navbar-custom navbar-fixed-top">
+      <div class="navbar-header"><a class="navbar-brand" href="#">Petaluma Park Search</a>
+        <a class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        </a>
+      </div>
     <div class="navbar-collapse collapse">
       
       <form class="navbar-form">
@@ -52,11 +75,12 @@
         <h2>Petaluma Parks</h2>
       
         <!-- item list -->
-      
+      <input type="text" id="query" class="form-control" data-bind="textInput: query" placeholder="What park are you searching for?" />
+          
         <div class="table-responsive">
+
           <table class="table table-striped" data-bind="visible: parkLocations().length > 0">
-          <form><input id="query" type="input" name="query" data-bind="textInput: query, keyUpdate: 'keyup'" autocomplete="off" class="form-control" placeholder="What park are you searching for?">
-          </form>
+          
             <tbody data-bind="foreach: parkLocations">
               <tr data-bind="click: $parent.listViewClick">
                 <td>
@@ -72,22 +96,23 @@
   </div>
 
 
-  <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAKBYkBS_rrDbJFXb9iwKxMm6GU9uE6Flo&callback=initMap">
-  </script>
+
+  <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAKBYkBS_rrDbJFXb9iwKxMm6GU9uE6Flo&callback=initMap"></script>
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js" integrity="sha384-THPy051/pYDQGanwU6poAc/hOdQxjnOEXzbT+OuUAFqNqFjL+4IGLBgCJC3ZOShY" crossorigin="anonymous"></script>
   
   <script src="js/libs/jquery-3.1.1.js"></script>
   
-  <script src="js/libs/knockout-3.4.0.js"></script>
   
   <script src="js/libs/bootstrap.min.js"></script>
 
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-  
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.2.0/js/tether.min.js" integrity="sha384-Plbmg8JY28KFelvJVai01l8WyZzrYWG825m+cZ0eDDS1f7d/js6ikvy1+X+guPIB" crossorigin="anonymous"></script>
-  
+
   <script src="js/libs/scripts.js"></script>
+
+  <script src="js/libs/knockout-3.4.0.js"></script>
+
+
   
   </body>
 </html>
