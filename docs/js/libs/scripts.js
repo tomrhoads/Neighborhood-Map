@@ -215,6 +215,4 @@ viewModel= function() {
   }*/
 }
 
-$(document).ready(function() {
-  initMap();
-});
+
