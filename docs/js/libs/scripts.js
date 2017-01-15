@@ -199,20 +199,8 @@ viewModel= function() {
       parkListItem.marker.setAnimation(null); // End animation on marker after 2 seconds
     }, 2000);
   };
-
-  //something I am working on for search filter
-  /*this.showItem = function(loc) {
-    console.log("search filter");
-    viewModel.parkLocations.removeAll();
-
-    if (loc == '') return;
-
-    for (var parkLoc in parkLocations) {
-      if (parkLocations[parkLoc].name.toLowerCase().indexOf(loc.toLowerCase()) >= 0) {
-        viewModel.parkLocations.push(parkLocations[parkLoc]);
-      }
-    }
-  }*/
 }
+
+initmap();
 
 
