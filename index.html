@@ -28,7 +28,7 @@
           <form><input id="query" type="input" name="query" data-bind="textInput: query, keyUpdate: 'keyup'" autocomplete="off" class="form-control" placeholder="What park are you searching for?">
           </form>
             <tbody data-bind="foreach: parkLocations">
-              <tr data-bind="click: $parent.listViewClick">
+              <tr data-bind="click: $parent.listViewClick visible: isVisible">
                 <td>
                   <h4><strong><span data-bind="text: name"></span></strong></h4>
                   <span data-bind="text: address"></span>
