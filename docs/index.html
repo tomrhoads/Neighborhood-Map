@@ -82,7 +82,7 @@
           <table class="table table-striped" data-bind="visible: parkLocations().length > 0">
           
             <tbody data-bind="foreach: parkLocations">
-              <tr data-bind="click: $parent.listViewClick">
+              <tr data-bind="click: $parent.listViewClick visible: isVisible">
                 <td>
                   <h4><strong><span data-bind="text: name"></span></strong></h4>
                   <span data-bind="text: address"></span>
