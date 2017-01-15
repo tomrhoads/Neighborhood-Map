@@ -120,8 +120,8 @@ viewModel= function() {
   var infoWindow = new google.maps.InfoWindow({});
 
   initialParkLocations.forEach(function(parkItem) {
-    if(!self.query() || parkItem.name.toLowerCase().indexOf(self.query().toLowerCase()) != 0){
-      console.log("search filter if statement true");
+    //if(!self.query() || parkItem.name.toLowerCase().indexOf(self.query().toLowerCase()) != 0){
+      //console.log("search filter if statement true");
       //for (var x in )
       var park = new ParkLocation(parkItem);
       marker = new google.maps.Marker({
@@ -136,11 +136,29 @@ viewModel= function() {
       });
 
       park.marker = marker;
+      park.isVisible = ko.observable(true);
       self.parkLocations.push(park);
-    } else {
-        console.log("search filter if statement false");
-        parkItem.showItem;
-    };
+    //} else {
+        //console.log("search filter if statement false");
+        //parkItem.showItem;
+    //};
+    this.filter = ko.computed(function() {
+          if(!self.query()) {
+            self.parkLocations().forEach(function(location){
+              
+              location.marker.setVisible(true);
+              location.isVisible(true);
+            });
+          } else {
+            self.parkLocations().forEach(function(location) {
+              var match = location.name().toLowerCase().indexOf(self.query().toLowerCase()) != -1;
+              location.marker.setVisible(match);
+              location.isVisible(match);
+            })
+          }
+
+        });
+    
   });
 
  
