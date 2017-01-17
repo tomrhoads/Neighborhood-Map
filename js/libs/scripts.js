@@ -85,15 +85,16 @@ var map;
 var marker;
 var foursquareUrl = 'https://api.foursquare.com/v2/venues/search';
 
+
 function initMap() {
-  var mapOptions = {
+  /*var mapOptions = {
     zoom: 13,
-    center: {lat: 38.237869, lng: -122.616077}
-  };
-  map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+    center: {lat: 38.245902, lng: -122.630577}
+  };*/
+  map = new google.maps.Map(document.getElementById('map-canvas')/*, mapOptions*/);
   ko.applyBindings(new viewModel());
   console.log("initMap");
-};
+}
 
 var googleError = function() {
   $('#map-canvas').append('<div class= "alert alert-danger"><h3>Google map did not load</h3></div>');
@@ -108,42 +109,66 @@ var ParkLocation = function(value) {
 };
 
 //view model
-viewModel= function() {
+var viewModel = function() {
   var self = this;
 
+  var latitude = 38.245902;
+  var longitude = -122.630577;
+  var center = new google.maps.LatLng(latitude, longitude);
+
   //Editable Data
-  this.showItem = ko.observable(false);
-  this.parkLocations = ko.observableArray([]);
+  self.initialParkLocations = ko.observableArray([]);
+  self.parkLocations = ko.observableArray([]);
   self.query = ko.observable('');
-  self.showItem = ko.observable(true);
+  
   
   var infoWindow = new google.maps.InfoWindow({});
 
   initialParkLocations.forEach(function(parkItem) {
-    if(!self.query() || parkItem.name.toLowerCase().indexOf(self.query().toLowerCase()) != 0){
-      console.log("search filter if statement true");
-      //for (var x in )
-      var park = new ParkLocation(parkItem);
-      marker = new google.maps.Marker({
-        position: parkItem.latlng,
-        map: map,
-        title: parkItem.name,
-        animation: google.maps.Animation.DROP
-      });
 
-      marker.addListener('click', function(){
-        self.infoWindowClick(this);
-      });
+    var park = new ParkLocation(parkItem);
+        
+        marker = new google.maps.Marker({
+          position: parkItem.latlng,
+          map: map,
+          title: parkItem.name,
+          animation: google.maps.Animation.DROP
+        });
 
-      park.marker = marker;
-      self.parkLocations.push(park);
-    } else {
-        console.log("search filter if statement false");
-        parkItem.showItem;
-    };
+        marker.addListener('click', function(){
+          self.infoWindowClick(this);
+        });
+
+        park.marker = marker;
+        park.isVisible = ko.observable(true);
+        self.parkLocations.push(park);
+
+        self.filter = ko.computed(function() {
+          if(!self.query()) {
+            self.parkLocations().forEach(function(location){
+              infoWindow.close();
+              location.marker.setVisible(true);
+              location.isVisible(true);
+              map.panTo(center);
+              map.setZoom(13);
+              
+            });
+          } else {
+            self.parkLocations().forEach(function(location) {
+              var match = location.name().toLowerCase().indexOf(self.query().toLowerCase()) != -1;
+              infoWindow.close();
+              location.marker.setVisible(match);
+              location.isVisible(match);
+              map.panTo(center);
+              map.setZoom(13);
+              
+            });
+          }
+
+        });
   });
 
- 
+
 
   this.infoWindowClick = function(marker) {
     $.ajax({
@@ -168,6 +193,8 @@ viewModel= function() {
     });
   };
 
+  
+
   //Click on item in list view
   self.listViewClick = function(parkListItem) {
     self.infoWindowClick(parkListItem.marker);
@@ -176,26 +203,10 @@ viewModel= function() {
       map.setZoom(15); //Zoom map view
       map.panTo(parkListItem.marker.getPosition()); // Pan to correct marker when list view item is clicked
       parkListItem.marker.setAnimation(google.maps.Animation.BOUNCE); // Bounce marker when list view item is clicked
+      //infoWindow.open(map, parkListItem.marker); // Open info window on correct marker when list item is clicked
     }
     setTimeout(function() {
       parkListItem.marker.setAnimation(null); // End animation on marker after 2 seconds
     }, 2000);
   };
-
-  //something I am working on for search filter
-  /*this.showItem = function(loc) {
-    console.log("search filter");
-    viewModel.parkLocations.removeAll();
-    if (loc == '') return;
-    for (var parkLoc in parkLocations) {
-      if (parkLocations[parkLoc].name.toLowerCase().indexOf(loc.toLowerCase()) >= 0) {
-        viewModel.parkLocations.push(parkLocations[parkLoc]);
-      }
-    }
-  }*/
-}
-
-$(document).ready(function() {
-  initMap();
-});
-
+};
