@@ -24,11 +24,11 @@
       
         <!-- item list -->
         <form>
-      	<input class="form-control" id="query" type="text" data-bind="textInput: query" placeholder="What park are you searching for?" />
+      	<input class="form-control" style="width: 250px" id="query" type="text" data-bind="textInput: query" placeholder="What park are you searching for?" />
          </form>
-        <div class="table-responsive">
+        <div class="table-responsive justify-content-between d-flex">
 
-          <table class="table table-striped">
+          <table class="table table-striped justify-content-between d-flex">
           
             <tbody data-bind="foreach: parkLocations">
               <tr data-bind="click: $parent.listViewClick, visible: isVisible">
