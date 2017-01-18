@@ -23,11 +23,12 @@
         <h2>Petaluma Parks</h2>
       
         <!-- item list -->
-      <input type="text" id="query" class="form-control" data-bind="textInput: query" placeholder="What park are you searching for?" />
-          
+        <form>
+      	<input class="form-control" id="query" type="text" data-bind="textInput: query" placeholder="What park are you searching for?" />
+         </form>
         <div class="table-responsive">
 
-          <table class="table table-striped" data-bind="visible: parkLocations().length > 0">
+          <table class="table table-striped">
           
             <tbody data-bind="foreach: parkLocations">
               <tr data-bind="click: $parent.listViewClick, visible: isVisible">
