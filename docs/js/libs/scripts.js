@@ -196,6 +196,9 @@ var viewModel = function() {
         infoWindow.open(map, marker);
         infoWindow.setContent('<div><h4>' + marker.title + '</h4><p>Foursquare Check-ins: ' + 
           results.response.venues[0].stats.checkinsCount + '</p>');
+      },
+      error: function(xhr, ajaxOptions, thrownError) {
+        alert("Foursquare data did not load");
       }
     });
   };
