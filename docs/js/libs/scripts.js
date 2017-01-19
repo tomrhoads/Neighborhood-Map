@@ -1,3 +1,4 @@
+//JSON Data
 var initialParkLocations = [{
   name:"Helen Putnam Regional Park",
   address: "411 Chileno Valley Rd, Petaluma, CA 94952", 
@@ -81,11 +82,13 @@ var initialParkLocations = [{
 }];
 
 "use strict";
+
+//Global Variables
 var map;
 var marker;
 var foursquareUrl = 'https://api.foursquare.com/v2/venues/search';
 
-
+//Initialize google map
 function initMap() {
   /*var mapOptions = {
     zoom: 13,
@@ -96,101 +99,109 @@ function initMap() {
   console.log("initMap");
 }
 
+//Error handler in case google map does not load
 var googleError = function() {
-  $('#map-canvas').append('<div class= "alert alert-danger"><h3>Google map did not load</h3></div>');
+  if (!map){
+    $('#map-canvas').append('<div class= "alert alert-danger"><h3>Google map did not load</h3></div>');
+  }
 };
 
+//Constructor that creates new parks for observable list
 var ParkLocation = function(value) {
-    var self = this;
-    self.name = ko.observable(value.name);
-    self.address = ko.observable(value.address);
-    self.latlng = ko.observable(value.latlng);
-    self.id = ko.observable(value.id);
+  var self = this;
+  self.name = ko.observable(value.name);
+  self.address = ko.observable(value.address);
+  self.latlng = ko.observable(value.latlng);
+  self.id = ko.observable(value.id);
 };
 
 //view model
 var viewModel = function() {
   var self = this;
 
+  //Initial Map View variables
   var latitude = 38.245902;
   var longitude = -122.630577;
   var center = new google.maps.LatLng(latitude, longitude);
 
-  //Editable Data
+  //KO Observables
   self.initialParkLocations = ko.observableArray([]);
   self.parkLocations = ko.observableArray([]);
   self.query = ko.observable('');
   
-  
+  //Infowindow initializer
   var infoWindow = new google.maps.InfoWindow({});
 
+  //Iterate through each park in JSON Array
   initialParkLocations.forEach(function(parkItem) {
 
+    //Declare new park objects
     var park = new ParkLocation(parkItem);
-        
-        marker = new google.maps.Marker({
-          position: parkItem.latlng,
-          map: map,
-          title: parkItem.name,
-          animation: google.maps.Animation.DROP
-          
-        });
 
-        marker.addListener('click', function(){
-          self.infoWindowClick(this);
-          this.setAnimation(google.maps.Animation.BOUNCE);
-          setTimeout(function() {
+    //Create marker
+    marker = new google.maps.Marker({
+      position: parkItem.latlng,
+      map: map,
+      title: parkItem.name,
+      animation: google.maps.Animation.DROP
+    });
+
+    //Add listener and behaviors to marker
+    marker.addListener('click', function(){
+      self.infoWindowClick(this);
+      this.setAnimation(google.maps.Animation.BOUNCE);
+      setTimeout(function() {
           park.marker.setAnimation(null); // End animation on marker after 2 seconds
-          }, 2000);
+        }, 2000);
+    });
+
+    //Set marker
+    park.marker = marker;
+
+    //Boolean for visibility of each park
+    park.isVisible = ko.observable(true);
+
+    //Push each park object into parkLocation array
+    self.parkLocations.push(park);
+
+    //Filter results of user search
+    self.filter = ko.computed(function() {
+      if(!self.query()) {
+        self.parkLocations().forEach(function(location){
+          infoWindow.close();
+          location.marker.setVisible(true);
+          location.isVisible(true);
+          map.panTo(center);
+          map.setZoom(13);
         });
-
-        
-
-        park.marker = marker;
-        park.isVisible = ko.observable(true);
-        self.parkLocations.push(park);
-
-        self.filter = ko.computed(function() {
-          if(!self.query()) {
-            self.parkLocations().forEach(function(location){
-              infoWindow.close();
-              location.marker.setVisible(true);
-              location.isVisible(true);
-              map.panTo(center);
-              map.setZoom(13);
-              
-            });
-          } else {
-            self.parkLocations().forEach(function(location) {
-              var match = location.name().toLowerCase().indexOf(self.query().toLowerCase()) != -1;
-              infoWindow.close();
-              location.marker.setVisible(match);
-              location.isVisible(match);
-              map.panTo(center);
-              map.setZoom(13);
-              
-            });
-          }
-
+      } else {
+        self.parkLocations().forEach(function(location) {
+          var match = location.name().toLowerCase().indexOf(self.query().toLowerCase()) != -1;
+          infoWindow.close();
+          location.marker.setVisible(match);
+          location.isVisible(match);
+          map.panTo(center);
+          map.setZoom(13);
         });
+      }
+    });
   });
 
-
-
+  //AJAX request opens infowindow with Foursquare information
   this.infoWindowClick = function(marker) {
     $.ajax({
       url: foursquareUrl,
       type: 'GET',
       dataType: "json",
       data: {
-                client_id: 'NONGGLXBKX5VFFIKKEK1HXQPFAFVMEBTRXBWJUPEN4K14JUE',
-                client_secret: 'ZZDD1SLJ4PA2X4AJ4V23OOZ53UM4SFZX0KORGWP5TZDK4YYJ',
-                v: '20161201',
-                ll: marker.position.lat() + ',' + marker.position.lng(),
-                limit: 1,
-                query: marker.title,
-                async: true
-            },
+        client_id: 'NONGGLXBKX5VFFIKKEK1HXQPFAFVMEBTRXBWJUPEN4K14JUE',
+        client_secret: 'ZZDD1SLJ4PA2X4AJ4V23OOZ53UM4SFZX0KORGWP5TZDK4YYJ',
+        v: '20161201',
+        ll: marker.position.lat() + ',' + marker.position.lng(),
+        limit: 1,
+        query: marker.title,
+        async: true
+      },
       success: function (results) {
         console.log("infoWindowClick AJAX Success Function");
         infoWindow.open(map, marker);
@@ -199,24 +210,25 @@ var viewModel = function() {
       },
       error: function(xhr, ajaxOptions, thrownError) {
         alert("Foursquare data did not load");
+        console.log(xhr);
+        console.log(ajaxOptions);
+        console.log(thrownError);
       }
     });
   };
 
-  
-
-  //Click on item in list view
+  //Click on item in list view to open infowindow and pan to location
   self.listViewClick = function(parkListItem) {
     self.infoWindowClick(parkListItem.marker);
     if (parkListItem.name) {
       console.log("listViewClick");
-      map.setZoom(15); //Zoom map view
-      map.panTo(parkListItem.marker.getPosition()); // Pan to correct marker when list view item is clicked
-      parkListItem.marker.setAnimation(google.maps.Animation.BOUNCE); // Bounce marker when list view item is clicked
-      //infoWindow.open(map, parkListItem.marker); // Open info window on correct marker when list item is clicked
+      map.setZoom(15); 
+      map.panTo(parkListItem.marker.getPosition());
+      parkListItem.marker.setAnimation(google.maps.Animation.BOUNCE);
     }
+    //Make marker stop bouncing after 2 seconds
     setTimeout(function() {
-      parkListItem.marker.setAnimation(null); // End animation on marker after 2 seconds
+      parkListItem.marker.setAnimation(null);
     }, 2000);
   };
 };
