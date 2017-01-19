@@ -26,15 +26,15 @@ To run this program, you will need to have the following:
 2. Internet Connection
 
 
-DOWNLOAD
+DOWNLOAD/RUN
 ------------
 
 1.  Go to https://github.com/tomrhoads/Neighborhood-Map
 2.  Click the 'clone or download' button
 3.  Choose 'Download ZIP'
-4.  Save zip file to location of your choosing 
-
-This will start the web application for you being served from a virtual machine.
+4.  Save zip file to location of your choosing
+5.  Extract zip file contents, save to disk
+6.  In web browser address bar, enter file location
 
 API REFERENCE
 ------------
