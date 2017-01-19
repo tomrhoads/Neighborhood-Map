@@ -83,7 +83,7 @@ var initialParkLocations = [{
 "use strict";
 var map;
 var marker;
-var foursquareUrl = 'https://api.foursquare.com/v2/venues/search';
+var foursquareUrl = 'https://api.foursqure.com/v2/venues/search';
 
 
 function initMap() {
