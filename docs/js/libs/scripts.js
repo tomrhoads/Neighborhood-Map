@@ -95,15 +95,13 @@ function initMap() {
     center: {lat: 38.245902, lng: -122.630577}
   };*/
   map = new google.maps.Map(document.getElementById('map-canvas')/*, mapOptions*/);
-  ko.applyBindings(new viewModel());
+  ko.applyBindings(new ViewModel());
   console.log("initMap");
 }
 
 //Error handler in case google map does not load
 var googleError = function() {
-  if (!map){
-    $('#map-canvas').append('<div class= "alert alert-danger"><h3>Google map did not load</h3></div>');
-  }
+  alert("Google map did not load.  Check console for error.");
 };
 
 //Constructor that creates new parks for observable list
@@ -153,7 +151,7 @@ var ViewModel = function() {
       this.setAnimation(google.maps.Animation.BOUNCE);
       setTimeout(function() {
           park.marker.setAnimation(null); // End animation on marker after 2 seconds
-        }, 2000);
+        }, 1400);
     });
 
     //Set marker
@@ -235,6 +233,6 @@ var ViewModel = function() {
     //Make marker stop bouncing after 2 seconds
     setTimeout(function() {
       parkListItem.marker.setAnimation(null);
-    }, 2000);
+    }, 1400);
   };
 };
