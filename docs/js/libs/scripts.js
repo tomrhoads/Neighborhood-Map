@@ -116,7 +116,7 @@ var ParkLocation = function(value) {
 };
 
 //view model
-var viewModel = function() {
+var ViewModel = function() {
   var self = this;
 
   //Initial Map View variables
@@ -125,6 +125,7 @@ var viewModel = function() {
   var center = new google.maps.LatLng(latitude, longitude);
 
   //KO Observables
+  self.visibleList = ko.observable(true);
   self.initialParkLocations = ko.observableArray([]);
   self.parkLocations = ko.observableArray([]);
   self.query = ko.observable('');
@@ -187,6 +188,7 @@ var viewModel = function() {
     });
   });
 
+
   //AJAX request opens infowindow with Foursquare information
   this.infoWindowClick = function(marker) {
     $.ajax({
@@ -216,6 +218,10 @@ var viewModel = function() {
       }
     });
   };
+
+  self.toggleClick = function() {
+    this.visibleList(!this.visibleList());
+  }
 
   //Click on item in list view to open infowindow and pan to location
   self.listViewClick = function(parkListItem) {
