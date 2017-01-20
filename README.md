@@ -34,7 +34,9 @@ DOWNLOAD/RUN
 3.  Choose 'Download ZIP'
 4.  Save zip file to location of your choosing
 5.  Extract zip file contents, save to disk
-6.  In web browser address bar, enter file location
+6.  In web browser address bar, enter file:///(path to index.html file in Neighborhood-Map folder)
+        OR
+    Right-click index.html, click 'open with', then choose browser of your liking
 
 API REFERENCE
 ------------
