@@ -30,8 +30,11 @@
 					<input class="form-control" id="query" type="text" data-bind="textInput: query" placeholder="What park are you searching for?" />
 				</form>
 
+				<!-- button to toggle list visibility -->
+				<button data-bind="click: toggleClick" class="btn btn-block">Click to toggle list</button>
+
 				<!-- item list -->
-				<div class="table-responsive">
+				<div data-bind="visible: visibleList" class="table-responsive">
 
 
 					<table class="table table-striped">
