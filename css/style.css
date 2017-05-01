@@ -38,6 +38,10 @@ body{
     overflow-y:scroll;
 }
 
+.table {
+	background-color:#727272;
+}
+
 #left {
 	height:100%;
 }
