@@ -68,6 +68,19 @@ body{
     position:absolute;
     right:px;
     top:0px;
-    bottom:0;
+    bottom:0px;
     overflow:hidden;
+}
+
+form .form-control {
+    margin-top: 0px;
+}
+
+.navbar {
+    background-color: #727272;
+    margin-bottom: 5px;
+}
+
+.table-responsive {
+    background-color: rgba(209, 209, 209, 0.75);
 }
