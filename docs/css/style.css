@@ -27,48 +27,29 @@ body{
 	border-color: #49bfff;
 	outline: 0;
 	-webkit-box-shadow: inset 0 0 0;
-	box-shadow: inset 0 0 0;
+	-moz-box-shadow: inset 0 0 0;
 }
 
-#main {
+#main, #main>.row {
 	height:100%;
+    overflow-y:scroll;
 }
 
 #main>.row {
-    overflow-y:scroll;
+    
 }
 
 #left {
 	height:100%;
 }
 
-.nytimes-container {
-    padding: 10px;
-    margin-right:300px;
-    background-color: rgba(255,255,255,0.7);
-}
-
-.article-list {
-    margin: 0;
-    padding: 0;
-}
-
-.article {
-    list-style-type: none;
-    padding:10px;
-    border-top: 1px solid #CCC;
-}
-.article:first-child {
-    border-top:none;
-}
-
 #map-canvas {
 	width:100%;
     height:100%;
     position:absolute;
-    right:0px;
-    top:0px;
-    bottom:0px;
+    right:0;
+    top:0;
+    bottom:0;
     overflow:hidden;
 }
 
@@ -82,5 +63,8 @@ form .form-control {
 }
 
 .table-responsive {
+    background-color: rgb(209, 209, 209);
     background-color: rgba(209, 209, 209, 0.75);
+    overflow: auto;
 }
+
