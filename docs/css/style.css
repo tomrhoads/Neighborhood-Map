@@ -65,6 +65,6 @@ form .form-control {
 .table-responsive {
     background-color: rgb(209, 209, 209);
     background-color: rgba(209, 209, 209, 0.75);
-    overflow: auto;
+    overflow: hidden;
 }
 
