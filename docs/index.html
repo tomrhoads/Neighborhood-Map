@@ -2,7 +2,7 @@
 <html>
 <head>
 
-	<title>Neighborhood Map</title>
+	<title>Petaluma Parks</title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -17,15 +17,19 @@
 <body>
 
 	<div id="map-canvas"></div>
+	<nav class="navbar navbar-default">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<h2>Petaluma Parks</h2>
+			</div>
+		</div>
+	</nav>
+	<div class="container-fluid" style="max-height: 600px;">
 
-	<div class="container-fluid" id="main">
+		
+		<div class="row" style="max-height: 600px">
 
-		<nav class="navbar">
-			<h2>Petaluma Parks</h2>
-		</nav>
-		<div class="row">
-
-			<div class="col-sm-3 col-md-3 col-lg-2" id="left">
+			<div class="col-sm-3 col-md-3 col-lg-4" style="max-height: 600px">
 
 				<!-- user input -->
 				<form>
@@ -39,7 +43,7 @@
 				<!-- item list -->
 				<div data-bind="visible: visibleList" class="table-responsive">
 
-					<table class="table table-bordered">
+					<table class="table table-bordered" >
 
 						<tbody data-bind="foreach: parkLocations">
 							<tr data-bind="click: $parent.listViewClick, visible: isVisible">
